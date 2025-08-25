@@ -27,9 +27,6 @@ import {
     AlignLeft,
     AlignCenter,
     AlignRight,
-    List,
-    ListOrdered,
-    Quote,
     Heading1,
     Heading2,
     Download,
@@ -41,9 +38,6 @@ type CustomElement = {
         | 'paragraph'
         | 'heading-one'
         | 'heading-two'
-        | 'block-quote'
-        | 'bulleted-list'
-        | 'numbered-list'
         | 'list-item';
     align?: 'left' | 'center' | 'right';
     children: CustomText[];
@@ -88,35 +82,45 @@ const SlateEditor = ({
     editorTitle,
 }: SlateEditorProps) => {
     const editor = useMemo(() => withHistory(withReact(createEditor())), []);
-    const [value, setValue] = useState<Descendant[]>(
-        initialText
-            ? [{ type: 'paragraph', children: [{ text: initialText }] }]
-            : initialValue,
-    );
+    const [value, setValue] = useState<Descendant[]>(initialValue);
+
+    useEffect(() => {
+        if (initialText && initialText.trim() !== '') {
+            const previousSelection = editor.selection;
+
+            Transforms.delete(editor, {
+                at: {
+                    anchor: Editor.start(editor, []),
+                    focus: Editor.end(editor, []),
+                },
+            });
+
+            const paragraphs = initialText.split('\n');
+
+            paragraphs.forEach((paragraphText, index) => {
+                if (index > 0) {
+                    Transforms.insertNodes(editor, {
+                        type: 'paragraph',
+                        children: [{ text: '' }],
+                    });
+                }
+
+                Transforms.insertText(editor, paragraphText);
+            });
+
+            if (previousSelection) {
+                Transforms.select(editor, previousSelection);
+            } else {
+                Transforms.select(editor, Editor.end(editor, []));
+            }
+        }
+    }, [initialText, editor]);
 
     const renderElement = useCallback((props: RenderElementProps) => {
         const { attributes, children, element } = props;
         const style = { textAlign: element.align };
 
         switch (element.type) {
-            case 'block-quote':
-                return (
-                    <blockquote
-                        style={style}
-                        {...attributes}
-                        className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4">
-                        {children}
-                    </blockquote>
-                );
-            case 'bulleted-list':
-                return (
-                    <ul
-                        style={style}
-                        {...attributes}
-                        className="list-disc list-inside my-4 space-y-1">
-                        {children}
-                    </ul>
-                );
             case 'heading-one':
                 return (
                     <h1
@@ -137,15 +141,6 @@ const SlateEditor = ({
                 );
             case 'list-item':
                 return <li {...attributes}>{children}</li>;
-            case 'numbered-list':
-                return (
-                    <ol
-                        style={style}
-                        {...attributes}
-                        className="list-decimal list-inside my-4 space-y-1">
-                        {children}
-                    </ol>
-                );
             default:
                 return (
                     <p
@@ -273,14 +268,6 @@ const SlateEditor = ({
         { format: 'underline' as keyof CustomText, icon: Underline },
     ];
 
-    const BLOCK_BUTTONS = [
-        { format: 'heading-one', icon: Heading1 },
-        { format: 'heading-two', icon: Heading2 },
-        { format: 'bulleted-list', icon: List },
-        { format: 'numbered-list', icon: ListOrdered },
-        { format: 'block-quote', icon: Quote },
-    ];
-
     const ALIGN_BUTTONS = [
         { format: 'left', icon: AlignLeft },
         { format: 'center', icon: AlignCenter },
@@ -290,18 +277,6 @@ const SlateEditor = ({
     const ACTION_BUTTONS = [
         { label: 'Export', icon: Download, onClick: () => handleExport() },
     ];
-
-    useEffect(() => {
-        if (initialText) {
-            Transforms.delete(editor, {
-                at: {
-                    anchor: Editor.start(editor, []),
-                    focus: Editor.end(editor, []),
-                },
-            });
-            Transforms.insertText(editor, initialText);
-        }
-    }, [initialText, editor]);
 
     return (
         <Card className="h-full">
@@ -325,6 +300,7 @@ const SlateEditor = ({
                                         : 'ghost'
                                 }
                                 size="sm"
+                                type="button"
                                 onMouseDown={e => {
                                     e.preventDefault();
                                     toggleMark(editor, format);
@@ -338,31 +314,13 @@ const SlateEditor = ({
                             className="h-6 mx-1"
                         />
 
-                        {/* Blocks */}
-                        {/* {BLOCK_BUTTONS.map(({ format, icon: Icon }) => (
-                            <Button
-                                key={format}
-                                variant={
-                                    isBlockActive(editor, format, 'type')
-                                        ? 'default'
-                                        : 'ghost'
-                                }
-                                size="sm"
-                                onMouseDown={e => {
-                                    e.preventDefault();
-                                    toggleBlock(editor, format);
-                                }}>
-                                <Icon className="h-4 w-4" />
-                            </Button>
-                        ))} */}
-
                         <Separator
                             orientation="vertical"
                             className="h-6 mx-1"
                         />
 
                         {/* Alignment */}
-                        {/* {ALIGN_BUTTONS.map(({ format, icon: Icon }) => (
+                        {ALIGN_BUTTONS.map(({ format, icon: Icon }) => (
                             <Button
                                 key={format}
                                 variant={
@@ -371,13 +329,14 @@ const SlateEditor = ({
                                         : 'ghost'
                                 }
                                 size="sm"
+                                type="button"
                                 onMouseDown={e => {
                                     e.preventDefault();
                                     toggleBlock(editor, format);
                                 }}>
                                 <Icon className="h-4 w-4" />
                             </Button>
-                        ))} */}
+                        ))}
 
                         <div className="flex-1" />
 
@@ -388,6 +347,7 @@ const SlateEditor = ({
                                     key={label}
                                     variant="outline"
                                     size="sm"
+                                    type="button"
                                     onClick={onClick}>
                                     <Icon className="h-4 w-4 mr-1" /> {label}
                                 </Button>
@@ -400,8 +360,8 @@ const SlateEditor = ({
                 <div className="border rounded-lg min-h-96">
                     <Slate
                         editor={editor}
-                        initialValue={value}
-                        onValueChange={newValue => {
+                        initialValue={initialValue}
+                        onChange={newValue => {
                             setValue(newValue);
                             if (onChangeText) {
                                 const plainText = newValue
@@ -413,10 +373,20 @@ const SlateEditor = ({
                         <Editable
                             renderElement={renderElement}
                             renderLeaf={renderLeaf}
-                            placeholder="Scanned results will be shown here"
                             className="p-4 min-h-96 focus:outline-none"
                             spellCheck
                             autoFocus
+                            onKeyDown={event => {
+                                if (event.key === 'Enter' && !event.shiftKey) {
+                                    event.preventDefault();
+                                    Transforms.splitNodes(editor, {
+                                        always: true,
+                                    });
+                                    Transforms.setNodes(editor, {
+                                        type: 'paragraph',
+                                    });
+                                }
+                            }}
                         />
                     </Slate>
                 </div>

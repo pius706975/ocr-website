@@ -1,39 +1,64 @@
 export const preprocessImage = (imageData: string): Promise<string> => {
-    const img = new Image();
-    img.src = imageData;
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = imageData;
 
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    return new Promise(resolve => {
         img.onload = () => {
-            canvas.width = img.width;
-            canvas.height = img.height;
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx?.drawImage(img, 0, 0);
 
-            ctx?.drawImage(img, 0, 0);
+                const src = cv.imread(canvas);
+                const gray = new cv.Mat();
+                const resized = new cv.Mat();
+                const denoise = new cv.Mat();
+                const thresh = new cv.Mat();
 
-            if (ctx) {
-                const imageDataObj = ctx.getImageData(
+                cv.resize(
+                    src,
+                    resized,
+                    new cv.Size(src.cols * 2, src.rows * 2),
                     0,
                     0,
-                    canvas.width,
-                    canvas.height,
+                    cv.INTER_CUBIC,
                 );
-                const data = imageDataObj.data;
 
-                // grayscale + threshold
-                for (let i = 0; i < data.length; i += 4) {
-                    const r = data[i];
-                    const g = data[i + 1];
-                    const b = data[i + 2];
-                    const gray = 0.3 * r + 0.59 * g + 0.11 * b;
-                    const val = gray > 128 ? 255 : 0;
-                    data[i] = data[i + 1] = data[i + 2] = val;
-                }
-                ctx.putImageData(imageDataObj, 0, 0);
+                cv.cvtColor(resized, gray, cv.COLOR_RGBA2GRAY);
+
+                cv.bilateralFilter(gray, denoise, 9, 75, 75);
+
+                cv.threshold(
+                    denoise,
+                    thresh,
+                    0,
+                    255,
+                    cv.THRESH_BINARY + cv.THRESH_OTSU,
+                );
+
+                const kernel = cv.getStructuringElement(
+                    cv.MORPH_RECT,
+                    new cv.Size(2, 2),
+                );
+                cv.morphologyEx(thresh, thresh, cv.MORPH_CLOSE, kernel);
+
+                cv.imshow(canvas, thresh);
+
+                src.delete();
+                gray.delete();
+                resized.delete();
+                denoise.delete();
+                kernel.delete();
+                thresh.delete();
+
+                resolve(canvas.toDataURL('image/png'));
+            } catch (err) {
+                reject(err);
             }
-
-            resolve(canvas.toDataURL('image/png'));
         };
+
+        img.onerror = err => reject(err);
     });
 };
