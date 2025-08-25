@@ -5,7 +5,7 @@ import type React from 'react';
 import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Camera, Upload } from 'lucide-react';
+import { Camera, Loader2, Upload } from 'lucide-react';
 import ScannerHeader from './Header';
 import Instruction from './Instruction';
 import Tesseract from 'tesseract.js';
@@ -92,33 +92,28 @@ const TextScanner = ({ onTextScanned }: TextScannerProps) => {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                {originalImage && (
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="relative">
-                                            <img
-                                                src={originalImage}
-                                                alt="Original"
-                                                className="w-full rounded-lg max-h-64 object-contain bg-muted"
-                                            />
-                                            <p className="text-center text-xs text-muted-foreground mt-1">
-                                                Original
-                                            </p>
-                                        </div>
-
-                                        {processedImage && (
-                                            <div className="relative">
-                                                <img
-                                                    src={processedImage}
-                                                    alt="Processed"
-                                                    className="w-full rounded-lg max-h-64 object-contain bg-muted"
-                                                />
-                                                <p className="text-center text-xs text-muted-foreground mt-1">
-                                                    Auto Cleaned
+                                <div className="grid grid-cols-1 gap-4">
+                                    <div className="relative flex items-center justify-center">
+                                        {isScanning ? (
+                                            <div className="flex flex-col items-center justify-center w-full h-64 bg-muted rounded-lg">
+                                                <Loader2 className="h-8 w-8 animate-spin text-primary mb-2" />
+                                                <p className="text-xs text-muted-foreground">
+                                                    Scanning...
                                                 </p>
                                             </div>
+                                        ) : (
+                                            processedImage && (
+                                                <>
+                                                    <img
+                                                        src={processedImage}
+                                                        alt="Processed"
+                                                        className="w-full rounded-lg max-h-64 object-contain bg-muted"
+                                                    />
+                                                </>
+                                            )
                                         )}
                                     </div>
-                                )}
+                                </div>
 
                                 <div className="flex flex-col sm:flex-row gap-3">
                                     <>
