@@ -72,7 +72,6 @@ const Scanner = () => {
                     <div className="p-6">
                         <SlateEditor
                             initialText={scannedText}
-                            // onSave={content => console.log('Saved:', content)}
                             onChangeText={setScannedText}
                             editorTitle="Scanned Results"
                         />

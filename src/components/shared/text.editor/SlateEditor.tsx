@@ -27,18 +27,12 @@ import {
     AlignLeft,
     AlignCenter,
     AlignRight,
-    Heading1,
-    Heading2,
     Download,
     FileText,
 } from 'lucide-react';
 
 type CustomElement = {
-    type:
-        | 'paragraph'
-        | 'heading-one'
-        | 'heading-two'
-        | 'list-item';
+    type: 'paragraph' | 'list-item';
     align?: 'left' | 'center' | 'right';
     children: CustomText[];
 };
@@ -121,24 +115,6 @@ const SlateEditor = ({
         const style = { textAlign: element.align };
 
         switch (element.type) {
-            case 'heading-one':
-                return (
-                    <h1
-                        style={style}
-                        {...attributes}
-                        className="font-heading text-2xl font-bold my-4">
-                        {children}
-                    </h1>
-                );
-            case 'heading-two':
-                return (
-                    <h2
-                        style={style}
-                        {...attributes}
-                        className="font-heading text-xl font-semibold my-3">
-                        {children}
-                    </h2>
-                );
             case 'list-item':
                 return <li {...attributes}>{children}</li>;
             default:
@@ -356,8 +332,7 @@ const SlateEditor = ({
                     </div>
                 </div>
 
-                {/* Editor */}
-                <div className="border rounded-lg min-h-96">
+                <div className="border rounded-lg flex-1 flex flex-col min-h-0">
                     <Slate
                         editor={editor}
                         initialValue={initialValue}
@@ -373,7 +348,11 @@ const SlateEditor = ({
                         <Editable
                             renderElement={renderElement}
                             renderLeaf={renderLeaf}
-                            className="p-4 min-h-96 focus:outline-none"
+                            className="p-4 flex-1 overflow-y-auto focus:outline-none min-h-0"
+                            style={{
+                                maxHeight: '450px',
+                                minHeight: '450px',
+                            }}
                             spellCheck
                             autoFocus
                             onKeyDown={event => {
