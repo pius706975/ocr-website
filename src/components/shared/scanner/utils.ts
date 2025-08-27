@@ -12,6 +12,15 @@ export const preprocessImage = (imageData: string): Promise<string> => {
                 ctx?.drawImage(img, 0, 0);
 
                 const src = cv.imread(canvas);
+
+                let processed;
+                try {
+                    processed = deskew(src);
+                } catch (deskewError) {
+                    console.warn('Deskew failed, using original:', deskewError);
+                    processed = src.clone();
+                }
+
                 const gray = new cv.Mat();
                 const thresh = new cv.Mat();
                 const opened = new cv.Mat();
@@ -19,7 +28,7 @@ export const preprocessImage = (imageData: string): Promise<string> => {
                 const sharpened = new cv.Mat();
                 const resized = new cv.Mat();
 
-                cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+                cv.cvtColor(processed, gray, cv.COLOR_RGBA2GRAY);
 
                 cv.adaptiveThreshold(
                     gray,
@@ -59,6 +68,7 @@ export const preprocessImage = (imageData: string): Promise<string> => {
                 cv.imshow(canvas, resized);
 
                 src.delete();
+                processed.delete();
                 gray.delete();
                 thresh.delete();
                 opened.delete();
@@ -76,4 +86,52 @@ export const preprocessImage = (imageData: string): Promise<string> => {
 
         img.onerror = err => reject(err);
     });
+};
+
+const deskew = (src: any): any => {
+    const gray = new cv.Mat();
+    cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+
+    const binary = new cv.Mat();
+    cv.threshold(gray, binary, 0, 255, cv.THRESH_BINARY | cv.THRESH_OTSU);
+
+    const edges = new cv.Mat();
+    cv.Canny(binary, edges, 50, 200, 3, false);
+
+    const lines = new cv.Mat();
+    cv.HoughLines(edges, lines, 1, Math.PI / 180, 150);
+
+    const angles: number[] = [];
+    for (let i = 0; i < lines.rows; i++) {
+        const theta = lines.data32F[i * 2 + 1];
+        if (theta > Math.PI / 4 && theta < (3 * Math.PI) / 4) {
+            const angleDeg = (theta * 180) / Math.PI - 90;
+            angles.push(angleDeg);
+        }
+    }
+
+    let angle = 0;
+    if (angles.length > 0) {
+        angles.sort((a, b) => a - b);
+        angle = angles[Math.floor(angles.length / 2)];
+    }
+
+    const center = new cv.Point(src.cols / 2, src.rows / 2);
+    const M = cv.getRotationMatrix2D(center, angle, 1.0);
+    const rotated = new cv.Mat();
+    cv.warpAffine(
+        src,
+        rotated,
+        M,
+        new cv.Size(src.cols, src.rows),
+        cv.INTER_CUBIC,
+        cv.BORDER_REPLICATE,
+    );
+
+    gray.delete();
+    binary.delete();
+    edges.delete();
+    lines.delete();
+    M.delete();
+    return rotated;
 };

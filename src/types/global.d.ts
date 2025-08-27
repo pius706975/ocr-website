@@ -1,1 +1,5 @@
-declare var cv: any;
+declare global {
+    var cv: any;
+}
+
+export {};

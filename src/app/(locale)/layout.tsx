@@ -1,5 +1,5 @@
-import Script from 'next/script';
 import ClientProvider from '../ClientProvider';
+import OpencvProvider from './OpenCVProvider';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -12,10 +12,7 @@ const PageLayout = ({ children }: LayoutProps) => {
                 {children}
             </div>
 
-            <Script
-                src="https://docs.opencv.org/4.x/opencv.js"
-                strategy="beforeInteractive"
-            />
+            <OpencvProvider />
         </ClientProvider>
     );
 };
