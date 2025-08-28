@@ -1,21 +1,19 @@
-
-import Home from '@/modules/home';
+import QRGeneratorPage from '@/modules/services/qr-generator';
 import { Metadata } from 'next';
 
 const Page = () => {
-    return <Home />;
+    return <QRGeneratorPage />;
 };
 
 export default Page;
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return {
-        title: 'Scan Pro',
-        description: 'Scan Pro Website',
+        title: 'QR Generator',
+        description: 'QR Generator by Scan Pro',
         openGraph: {
-            title: 'Scan Pro App',
-            description:
-                'Scan Pro Services',
+            title: 'QR Generator',
+            description: 'Create your QR code with your data',
             images: {
                 url: '',
                 width: 1200,
@@ -36,13 +34,9 @@ export const generateMetadata = async (): Promise<Metadata> => {
             },
         },
         keywords: [
-            'Text scanner',
-            'Free text scanner',
-            'Free image to text',
-            'Image to text',
-            'Scan image to text',
-            'QR generator',
-            'QR code generator',
+            'QR Generator',
+            'Free QR Generator',
+            'Free QR Code Generator',
         ],
     };
 };

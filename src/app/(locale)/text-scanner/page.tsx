@@ -1,21 +1,21 @@
 
-import Home from '@/modules/home';
+import TextScanner from '@/modules/services/text-scanner';
 import { Metadata } from 'next';
 
 const Page = () => {
-    return <Home />;
+    return <TextScanner />;
 };
 
 export default Page;
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return {
-        title: 'Scan Pro',
-        description: 'Scan Pro Website',
+        title: 'Text Scanner',
+        description: 'Text Scanner Pro',
         openGraph: {
-            title: 'Scan Pro App',
+            title: 'Text scanner service',
             description:
-                'Scan Pro Services',
+                'Scan your document and get the text',
             images: {
                 url: '',
                 width: 1200,
@@ -41,8 +41,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
             'Free image to text',
             'Image to text',
             'Scan image to text',
-            'QR generator',
-            'QR code generator',
         ],
     };
 };

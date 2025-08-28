@@ -1,5 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M5 8a1 1 0 0 1-2 0V5.923c0-.76.082-1.185.319-1.627.223-.419.558-.754.977-.977C4.738 3.082 5.162 3 5.923 3H8a1 1 0 0 1 0 2H5.923c-.459 0-.57.022-.684.082a.364.364 0 0 0-.157.157c-.06.113-.082.225-.082.684V8zm3 11a1 1 0 1 1 0 2H5.923c-.76 0-1.185-.082-1.627-.319a2.363 2.363 0 0 1-.977-.977C3.082 19.262 3 18.838 3 18.077V16a1 1 0 1 1 2 0v2.077c0 .459.022.57.082.684.038.07.087.12.157.157.113.06.225.082.684.082H8zm7-15a1 1 0 0 0 1 1h2.077c.459 0 .57.022.684.082.07.038.12.087.157.157.06.113.082.225.082.684V8a1 1 0 1 0 2 0V5.923c0-.76-.082-1.185-.319-1.627a2.363 2.363 0 0 0-.977-.977C19.262 3.082 18.838 3 18.077 3H16a1 1 0 0 0-1 1zm4 12a1 1 0 1 1 2 0v2.077c0 .76-.082 1.185-.319 1.627a2.364 2.364 0 0 1-.977.977c-.442.237-.866.319-1.627.319H16a1 1 0 1 1 0-2h2.077c.459 0 .57-.022.684-.082a.363.363 0 0 0 .157-.157c.06-.113.082-.225.082-.684V16zM3 11a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3z" fill="#1976D2"/>
+<svg
+  width="32"
+  height="32"
+  viewBox="0 0 32 32"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Outer scanning frame -->
+  <rect
+    x="2"
+    y="2"
+    width="28"
+    height="28"
+    rx="6"
+    stroke="#7D8AF2"
+    stroke-width="2"
+    fill="none"
+  />
+
+  <!-- Corner brackets - top left -->
+  <path
+    d="M6 6L6 10M6 6L10 6"
+    stroke="#7D8AF2"
+    stroke-width="2.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Corner brackets - top right -->
+  <path
+    d="M26 6L26 10M26 6L22 6"
+    stroke="#7D8AF2"
+    stroke-width="2.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Corner brackets - bottom left -->
+  <path
+    d="M6 26L6 22M6 26L10 26"
+    stroke="#7D8AF2"
+    stroke-width="2.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Corner brackets - bottom right -->
+  <path
+    d="M26 26L26 22M26 22L22 26"
+    stroke="#7D8AF2"
+    stroke-width="2.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Central scanning element - stylized "S" -->
+  <path
+    d="M12 12C12 10.8954 12.8954 10 14 10H18C19.1046 10 20 10.8954 20 12C20 13.1046 19.1046 14 18 14H16C14.8954 14 14 14.8954 14 16V16C14 17.1046 14.8954 18 16 18H18C19.1046 18 20 18.8954 20 20V20C20 21.1046 19.1046 22 18 22H14C12.8954 22 12 21.1046 12 20"
+    stroke="#7D8AF2"
+    stroke-width="2"
+    stroke-linecap="round"
+    fill="none"
+  />
+
+  <!-- Scanning line animation effect -->
+  <line
+    x1="8"
+    y1="16"
+    x2="24"
+    y2="16"
+    stroke="#7D8AF2"
+    stroke-width="1"
+    opacity="0.6"
+    stroke-dasharray="2 2"
+  />
 </svg>

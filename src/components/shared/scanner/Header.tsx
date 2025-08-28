@@ -19,8 +19,6 @@ const ScannerHeader = () => {
                             </p>
                         </div>
                     </div>
-
-                    <ModeToggle className='hidden sm:block' />
                 </div>
             </div>
         </header>

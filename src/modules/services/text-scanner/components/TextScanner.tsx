@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Camera, FileText } from 'lucide-react';
 import TextScanner from '@/components/shared/scanner/TextScanner';
-import SlateEditor from '@/components/shared/text.editor/SlateEditor';
-import { ModeToggle } from '@/components/layouts/DarkLightToogle';
+import SlateEditor from '@/components/shared/text-editor/SlateEditor';
 
 const Scanner = () => {
     const [scannedText, setScannedText] = useState<string>('');
@@ -26,7 +25,7 @@ const Scanner = () => {
                     className="h-screen flex flex-col">
                     <div className="border-b bg-card/50 backdrop-blur-sm px-4 py-2">
                         <div className="flex items-center justify-between">
-                            <TabsList className="grid grid-cols-2 w-[80%]">
+                            <TabsList className="grid grid-cols-2 w-[100%]">
                                 <TabsTrigger
                                     value="scanner"
                                     className="flex items-center gap-2">
@@ -44,8 +43,6 @@ const Scanner = () => {
                                     </span>
                                 </TabsTrigger>
                             </TabsList>
-
-                            <ModeToggle />
                         </div>
                     </div>
 
