@@ -1,19 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import { QRGenerator } from '@/components/shared/qr-generator/QRGenerator';
 
 export default function QRGeneratorPage() {
-    const [initialText, setInitialText] = useState('');
-    const searchParams = useSearchParams();
-
-    useEffect(() => {
-        const text = searchParams.get('text');
-        if (text) {
-            setInitialText(decodeURIComponent(text));
-        }
-    }, [searchParams]);
+    const [initialText] = useState('');
 
     return (
         <div className="min-h-screen bg-background">
