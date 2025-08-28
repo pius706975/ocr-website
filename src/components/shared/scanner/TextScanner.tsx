@@ -6,7 +6,6 @@ import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Camera, Loader2, Upload } from 'lucide-react';
-import ScannerHeader from './Header';
 import Instruction from './Instruction';
 import Tesseract from 'tesseract.js';
 import CameraModal from './CameraModal';
@@ -79,7 +78,6 @@ const TextScanner = ({ onTextScanned }: TextScannerProps) => {
 
     return (
         <div className="min-h-screen bg-background">
-            <ScannerHeader />
 
             <div className="container mx-auto px-4 py-8">
                 <div className="grid lg:grid-cols-1 gap-8">

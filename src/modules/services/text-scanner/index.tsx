@@ -1,6 +1,6 @@
 import Scanner from './components/TextScanner';
 
-const Home = () => {
+const TextScanner = () => {
     return <Scanner />;
 };
-export default Home;
+export default TextScanner;
