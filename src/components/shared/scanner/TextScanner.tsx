@@ -86,7 +86,7 @@ const TextScanner = ({ onTextScanned }: TextScannerProps) => {
                             <CardHeader>
                                 <CardTitle className="font-heading flex items-center gap-2">
                                     <Camera className="h-5 w-5" />
-                                    Scan Text
+                                    {`Scan Text (Beta)`}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
