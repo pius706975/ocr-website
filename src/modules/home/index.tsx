@@ -12,7 +12,7 @@ import { Scan, QrCode, ArrowRight, ScanQrCode } from 'lucide-react';
 const Home = () => {
     const services = [
         {
-            title: 'Image to Text',
+            title: 'Image to Text (Beta)',
             description:
                 'Extract text from images, books, and documents using advanced OCR technology',
             icon: Scan,
@@ -53,12 +53,12 @@ const Home = () => {
                         scanning, editing, and generating — all in one place.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button size="lg" asChild>
+                        {/* <Button size="lg" asChild>
                             <Link href="/text-scanner">
                                 Get Started
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </Link>
-                        </Button>
+                        </Button> */}
                         <Button size="lg" variant="outline" asChild>
                             <Link href="#services">Explore Services</Link>
                         </Button>

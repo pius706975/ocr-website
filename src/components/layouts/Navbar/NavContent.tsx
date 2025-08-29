@@ -21,7 +21,7 @@ const NavContent = () => {
 
     const services = [
         {
-            name: 'Image to Text',
+            name: 'Image to Text (Beta)',
             href: '/text-scanner',
             icon: Scan,
             description: 'OCR text scanning from images',
@@ -110,15 +110,14 @@ const NavContent = () => {
 
                     {/* Mobile Navigation */}
                     <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                        <ModeToggle className='sm:hidden' />
                         <SheetTrigger asChild className="md:hidden">
                             <Button variant="ghost" size="icon">
                                 <Menu className="h-5 w-5" />
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="right" className="w-80">
-                            <div className="flex items-center justify-between mb-6">
-                                <ModeToggle />
-                            </div>
+                            <div className="flex items-center justify-between mb-6" />
 
                             <nav className="space-y-4">
                                 <Link
