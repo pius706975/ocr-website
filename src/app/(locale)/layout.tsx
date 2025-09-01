@@ -11,7 +11,7 @@ const PageLayout = ({ children }: LayoutProps) => {
     return (
         <ClientProvider>
             <Navbar />
-            <div className="bg-[radial-gradient(circle,#73737350_1px,transparent_1px)] bg-[size:20px_20px]">
+            <div className="bg-[radial-gradient(circle,#73737350_1px,transparent_1px)] bg-[size:20px_20px] px-10">
                 {children}
             </div>
             <Footer />

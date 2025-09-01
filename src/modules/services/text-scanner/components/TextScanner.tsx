@@ -16,14 +16,14 @@ const Scanner = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen">
             {/* Mobile*/}
             <div className="block lg:hidden">
                 <Tabs
                     value={activeTab}
                     onValueChange={setActiveTab}
                     className="h-screen flex flex-col">
-                    <div className="border-b bg-card/50 backdrop-blur-sm px-4 py-2">
+                    <div className="pt-4">
                         <div className="flex items-center justify-between">
                             <TabsList className="grid grid-cols-2 w-[100%]">
                                 <TabsTrigger
@@ -50,7 +50,7 @@ const Scanner = () => {
                         <TextScanner onTextScanned={handleTextScanned} />
                     </TabsContent>
 
-                    <TabsContent value="editor" className="flex-1 m-0 p-4">
+                    <TabsContent value="editor" className="flex-1 my-4">
                         <SlateEditor
                             initialText={scannedText}
                             onChangeText={setScannedText}
