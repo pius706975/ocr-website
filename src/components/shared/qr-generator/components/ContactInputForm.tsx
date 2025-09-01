@@ -191,16 +191,16 @@ export function ContactInputForm({
     ];
 
     return (
-        <div className="grid gap-2">
-            {forms.map(items => (
-                <>
+        <div className="max-h-[400px] overflow-y-auto pr-2 space-y-3">
+            {forms.map((items, i) => (
+                <div key={i} className="grid gap-1">
                     <Label>{items.label}</Label>
                     <Input
                         value={items.value}
                         onChange={items.onChange}
                         placeholder={items.placeholders}
                     />
-                </>
+                </div>
             ))}
         </div>
     );

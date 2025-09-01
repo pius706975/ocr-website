@@ -3,8 +3,8 @@ import { Shield, Smartphone, Zap } from 'lucide-react';
 const features = [
     {
         icon: Zap,
-        title: 'Lightning Fast',
-        description: 'Process images and generate QR codes in seconds',
+        title: 'Fast & Simple',
+        description: 'Quickly process images with minimal effort',
     },
     {
         icon: Shield,

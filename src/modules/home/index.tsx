@@ -7,7 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { Scan, QrCode, ArrowRight, ScanQrCode } from 'lucide-react';
+import { Scan, QrCode, ArrowRight, LucideGitCompareArrows } from 'lucide-react';
 
 const Home = () => {
     const services = [
@@ -16,7 +16,7 @@ const Home = () => {
             description:
                 'Extract text from images, books, and documents using advanced OCR technology',
             icon: Scan,
-            href: '/text-scanner',
+            href: '/services/text-scanner',
             color: 'text-cyan-500',
         },
         {
@@ -24,21 +24,21 @@ const Home = () => {
             description:
                 'Generate QR codes from text, URLs, and other data with customizable options',
             icon: QrCode,
-            href: '/qr-generator',
+            href: '/services/qr-generator',
             color: 'text-emerald-500',
         },
         {
-            title: 'QR & Barcode Scanner',
+            title: 'Text Diff Checker',
             description:
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit',
-            icon: ScanQrCode,
-            href: '/code-scanner',
+            icon: LucideGitCompareArrows,
+            href: '/services/text-diff-checker',
             color: 'text-purple-500',
         },
     ];
 
     return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen">
             {/* Hero Section */}
             <section className="container mx-auto px-4 py-16 text-center">
                 <div className="max-w-3xl mx-auto">

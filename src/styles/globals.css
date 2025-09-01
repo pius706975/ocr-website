@@ -3,11 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html body[data-scroll-locked] {
-  overflow: visible !important;
-  margin-right: 0 !important;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -124,4 +119,72 @@ html body[data-scroll-locked] {
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Diff text style */
+  /* Default light */
+  .diff-container .d2h-wrapper {
+    background: white;
+    color: black;
+  }
+
+  /* Dark theme overrides */
+  .dark .diff-container .d2h-wrapper {
+    background: hsl(222.2 84% 4.9%); /* bg background dari shadcn */
+    color: hsl(210 40% 98%); /* fg foreground */
+  }
+
+  .dark .diff-container .d2h-diff-table {
+    background: transparent !important;
+  }
+
+  /* Remove header line (@@ -1,7 +1,7 @@) */
+  .diff-container .d2h-info {
+    display: none !important;
+  }
+
+  .dark .diff-container .d2h-code-linenumber {
+    background: hsl(222.2 84% 4.9%) !important;
+    color: hsl(215.4 16.3% 56.9%) !important; 
+    border: none !important;
+  }
+
+  .dark .diff-container .d2h-code-line,
+  .dark .diff-container .d2h-code-side-line {
+    background: transparent !important;
+  }
+
+  .dark .diff-container .d2h-del {
+    background-color: rgba(239, 68, 68, 0.2) !important;
+    color: rgb(239, 68, 68) !important; 
+  }
+
+  .dark .diff-container .d2h-ins {
+    background-color: rgba(34, 197, 94, 0.2) !important; 
+    color: rgb(34, 197, 94) !important; 
+  }
+
+  .diff-container .d2h-file-header {
+    display: none !important;
+  }
+
+  .diff-container .d2h-file-list-wrapper {
+    display: none !important;
+  }
+
+  .dark .diff-container td.d2h-code-linenumber {
+    background: hsl(222.2 84% 4.9%) !important; 
+    color: hsl(215.4 16.3% 56.9%) !important;   
+    border: none !important;
+  }
+
+  .dark .diff-container td.d2h-code-linenumber .line-num {
+    background: transparent !important;
+    color: hsl(215.4 16.3% 56.9%) !important;
+  }
+
+}
+
+html body[data-scroll-locked] {
+  overflow: visible !important;
+  margin-right: 0 !important;
 }

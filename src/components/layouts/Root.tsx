@@ -27,19 +27,20 @@ export default function Root({ children, className }: RootProps) {
                     commissioner.className,
                 )}>
                 <Loader
-                    color="#05b6d3"
+                    color="#737ED9"
                     initialPosition={0.08}
                     crawlSpeed={200}
                     height={3}
                     crawl
-                    showSpinner
+                    showSpinner={false}
                     easing="ease"
                     speed={200}
                     shadow="0 0 10px #05b6d3,0 0 5px #45c6c0"
                 />
                 <Init />
                 {children}
-                <Toaster />
+                
+                <Toaster richColors closeButton position='top-center' />
             </body>
         </html>
     );
