@@ -16,7 +16,7 @@ const Home = () => {
             description:
                 'Extract text from images, books, and documents using advanced OCR technology',
             icon: Scan,
-            href: '/services/text-scanner',
+            href: '/text-scanner',
             color: 'text-cyan-500',
         },
         {
@@ -24,7 +24,7 @@ const Home = () => {
             description:
                 'Generate QR codes from text, URLs, and other data with customizable options',
             icon: QrCode,
-            href: '/services/qr-generator',
+            href: '/qr-generator',
             color: 'text-emerald-500',
         },
         {
@@ -32,7 +32,7 @@ const Home = () => {
             description:
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit',
             icon: LucideGitCompareArrows,
-            href: '/services/text-diff-checker',
+            href: '/text-diff-checker',
             color: 'text-purple-500',
         },
     ];
