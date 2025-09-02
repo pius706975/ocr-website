@@ -45,19 +45,19 @@ const NavContent = () => {
             children: [
                 {
                     name: 'Image to Text (Beta)',
-                    href: '/services/text-scanner',
+                    href: '/text-scanner',
                     icon: Scan,
                     description: 'OCR text scanning from images',
                 },
                 {
                     name: 'QR Generator',
-                    href: '/services/qr-generator',
+                    href: '/qr-generator',
                     icon: QrCode,
                     description: 'Generate QR codes from text and URLs',
                 },
                 {
                     name: 'Text Diff Checker',
-                    href: '/services/text-diff-checker',
+                    href: '/text-diff-checker',
                     icon: LucideGitCompareArrows,
                     description:
                         'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet',
